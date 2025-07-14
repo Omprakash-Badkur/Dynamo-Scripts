@@ -1,0 +1,179 @@
+{
+  "Uuid": "0cd83bbc-f10e-41d6-bcb8-138a977aaf7f",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "rotate column",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "8785024c259d4185a2ea409db08f2a97",
+      "Name": "Number",
+      "Type": "number",
+      "Value": "30",
+      "NumberType": "Double",
+      "Description": "Creates a number."
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "ce870bbd-f875-424e-9c43-45818e0c83dc-0010df2b",
+        "ce870bbd-f875-424e-9c43-45818e0c83dc-0010dfed",
+        "ce870bbd-f875-424e-9c43-45818e0c83dc-0010e01c",
+        "ce870bbd-f875-424e-9c43-45818e0c83dc-0010e077"
+      ],
+      "Id": "debeff31a79142b4800700c4199f7629",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8b87a49bfa23439596585471f7eaa464",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.FamilyInstance.SetRotation@double",
+      "Id": "6ec4b3b58567498f8b556b8a5ea5aed0",
+      "Inputs": [
+        {
+          "Id": "297cca536ce74966ad7cc5b46c71366a",
+          "Name": "familyInstance",
+          "Description": "Revit.Elements.FamilyInstance",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "419a172ed24042438e09580e8b6113f4",
+          "Name": "degree",
+          "Description": "The Euler angle around Z-axis.\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f0058eb93e2446baa872a5032358e8a5",
+          "Name": "FamilyInstance",
+          "Description": "The result family instance.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Set the Euler angle of the family instance around its local Z-axis.\n\nFamilyInstance.SetRotation (degree: double): FamilyInstance"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 30.0,
+      "Id": "8785024c259d4185a2ea409db08f2a97",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3c30dd06ed6c4093b9a15e6a38bfded3",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a number."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "8b87a49bfa23439596585471f7eaa464",
+      "End": "297cca536ce74966ad7cc5b46c71366a",
+      "Id": "a578fbc8fa4b4b529ad52c1808b28460"
+    },
+    {
+      "Start": "3c30dd06ed6c4093b9a15e6a38bfded3",
+      "End": "419a172ed24042438e09580e8b6113f4",
+      "Id": "cdc0ac4fee4642a39849a03f8bf510f4"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.10.1.3976",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Elements",
+        "Id": "debeff31a79142b4800700c4199f7629",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 131.60000000000008,
+        "Y": 59.999999999999943
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "FamilyInstance.SetRotation",
+        "Id": "6ec4b3b58567498f8b556b8a5ea5aed0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 383.6,
+        "Y": 175.99999999999991
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number",
+        "Id": "8785024c259d4185a2ea409db08f2a97",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 194.39999999999992,
+        "Y": 212.00000000000009
+      }
+    ],
+    "Annotations": [],
+    "X": 0.0,
+    "Y": 0.0,
+    "Zoom": 1.0
+  }
+}

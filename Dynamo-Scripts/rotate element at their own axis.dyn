@@ -1,0 +1,189 @@
+{
+  "Uuid": "21463d95-e6df-4f46-a59e-12142c412b71",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "rotate element at their own axis",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "72e9094b531c42ef850b03865e07d5f6",
+      "Name": "Number",
+      "Type": "number",
+      "Value": "45",
+      "NumberType": "Double",
+      "Description": "Creates a number."
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "ce870bbd-f875-424e-9c43-45818e0c83dc-0010e2a9",
+        "ce870bbd-f875-424e-9c43-45818e0c83dc-0010e2ea"
+      ],
+      "Id": "78777c42b47f4cd58bbdf3406d7a0724",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3528f58938fa4d8c9e3aa3aa5ed7968d",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "b7d53942-f5f1-46b5-b32c-8da905c94724",
+      "FunctionType": "Graph",
+      "NodeType": "FunctionNode",
+      "Id": "eaeccbdfa10e4733bb71ab59564aab5d",
+      "Inputs": [
+        {
+          "Id": "d3e3075e27b446a6b7804e1006fbbf95",
+          "Name": "element",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6af459e1baf24b54b523a6de7d3f612e",
+          "Name": "degree",
+          "Description": "The angle around Z-axis\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0efcfdffd9184b4bb6c4a5cf56c7283a",
+          "Name": "Element",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Set the angle of the element around its local Z-axis.\r\n(Same as the Rotate command in Revit)"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 45.0,
+      "Id": "72e9094b531c42ef850b03865e07d5f6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1ebad34f8ef1471883229ebe902c0f1f",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a number."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "3528f58938fa4d8c9e3aa3aa5ed7968d",
+      "End": "d3e3075e27b446a6b7804e1006fbbf95",
+      "Id": "7210946f80cd4ea183278606a56aef97"
+    },
+    {
+      "Start": "1ebad34f8ef1471883229ebe902c0f1f",
+      "End": "6af459e1baf24b54b523a6de7d3f612e",
+      "Id": "60377128df3245a4913be685e901aa9c"
+    }
+  ],
+  "Dependencies": [
+    "b7d53942-f5f1-46b5-b32c-8da905c94724"
+  ],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "Genius Loci",
+      "Version": "2023.7.13",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "eaeccbdfa10e4733bb71ab59564aab5d"
+      ]
+    }
+  ],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.10.1.3976",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Elements",
+        "Id": "78777c42b47f4cd58bbdf3406d7a0724",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 139.60000000000002,
+        "Y": 123.20000000000002
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Element SetRotation",
+        "Id": "eaeccbdfa10e4733bb71ab59564aab5d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 383.59999999999997,
+        "Y": 159.99999999999994
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number",
+        "Id": "72e9094b531c42ef850b03865e07d5f6",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 213.59999999999997,
+        "Y": 251.20000000000005
+      }
+    ],
+    "Annotations": [],
+    "X": 0.0,
+    "Y": 0.0,
+    "Zoom": 1.0
+  }
+}

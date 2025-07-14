@@ -1,0 +1,612 @@
+{
+  "Uuid": "7c921ee5-e337-4eb6-b91d-2ac7b1eddff4",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "TextFromCAD",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "90d8c1feb1b94a8fbdd4f0f9d9c0ea61",
+      "Name": "Select CAD",
+      "Type": "selection",
+      "Type2": "hostSelection",
+      "Value": "c3aeb202-b7bb-4512-a4d3-502da3191ea7-0004e511",
+      "Description": "Select a model element from the document.",
+      "SelectedIndex": 0
+    },
+    {
+      "Id": "6ed0d72ca56945d5a0b661d6e861218b",
+      "Name": "Layer Name",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "S-ANNO-TEXT",
+      "Description": "Creates a string.",
+      "SelectedIndex": 0
+    },
+    {
+      "Id": "03dc2e0b8ef742c9b570315ca0f41ba0",
+      "Name": "Views",
+      "Type": "selection",
+      "Type2": "dropdownSelection",
+      "Value": "Level 0",
+      "Description": "All views available in the current document.",
+      "SelectedIndex": 12
+    },
+    {
+      "Id": "27fec904b24e4544865fdb6ab57624a4",
+      "Name": "Select Horizontal Text Alignment",
+      "Type": "selection",
+      "Type2": "dropdownSelection",
+      "Value": "Left",
+      "Description": "Select the horizontal text alignment style.",
+      "SelectedIndex": 1
+    },
+    {
+      "Id": "36f6903c631a438b868d6f6d0dbfd3d3",
+      "Name": "Text type",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "3.5mm Arial",
+      "Description": "Creates a string.",
+      "SelectedIndex": 0
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "c3aeb202-b7bb-4512-a4d3-502da3191ea7-0004e511"
+      ],
+      "Id": "90d8c1feb1b94a8fbdd4f0f9d9c0ea61",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1ac1e02d048c470cb324220371c411c6",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "CADTextData.FromLayers@Revit.Elements.ImportInstance,string[]",
+      "Id": "7de94402beae45cb99b83bb2fb99bbe5",
+      "Inputs": [
+        {
+          "Id": "0f4279bbd0bb47dea0d02de55bd5c1ec",
+          "Name": "importInstance",
+          "Description": "Input the ImportInstance to convert to curves.\n\nImportInstance",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c7ade815246744ecafce63f75422fd04",
+          "Name": "layerNames",
+          "Description": "Input the layer names to filter and convert text elements. Leave unconnected to convert text on all layers. Names are case-sensitive.\n\nstring[]\nDefault value : []",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "85467fee3ecf4a8da9a3e7301e502e62",
+          "Name": "CADTextData[][]",
+          "Description": "CADTextData[][]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "95d510be2b2a4543b0313e796ae698cc",
+          "Name": "layerKeys[]",
+          "Description": "string[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Extract text from a CAD link or import by layer name. Works recursively to extract text from CAD blocks regardless of any nested depth. The node also avoids exploding the CAD instance, so it is not affected by Revits 10,000 element import limit! \r\rVisit bimorph.com/bimorph-nodes for support\n\nCADTextData.FromLayers (importInstance: ImportInstance, layerNames: string[] = []): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "S-ANNO-TEXT",
+      "Id": "6ed0d72ca56945d5a0b661d6e861218b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b6f273919e5646b68e006f6c0ac7da49",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "CADTextData.TextValue",
+      "Id": "a21f3376399a49bd8c77811b5e174fb4",
+      "Inputs": [
+        {
+          "Id": "e9e66cf8fe234e3caf4ab39b4acd9bd2",
+          "Name": "cADTextData",
+          "Description": "CADTextData",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b90ba81190054d2ea48cc1def1373e00",
+          "Name": "string",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "The text value of this CADTextData object. \r\rVisit bimorph.com/bimorph-nodes for support\n\nCADTextData.TextValue: string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "CADTextData.OriginPoint",
+      "Id": "4e83138f5e1b4171a9a162f311936c6f",
+      "Inputs": [
+        {
+          "Id": "e36c60e6eb0b440c9c4ed236a6a1e53c",
+          "Name": "cADTextData",
+          "Description": "CADTextData",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "65d4bf3573594db0a7cea5866f7e0ef6",
+          "Name": "Point",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "The placement point of this CADTextData object.\r\r Visit bimorph.com/bimorph-nodes for support\n\nCADTextData.OriginPoint: Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.TextNote.ByLocation@Revit.Elements.Views.View,Autodesk.DesignScript.Geometry.Point,string,string,Revit.Elements.TextNoteType,bool,double",
+      "Id": "872cbb94335c4f9c8bdb23b9d18df6f9",
+      "Inputs": [
+        {
+          "Id": "5c2b4a49cebd4690bd716cdfc2c20f67",
+          "Name": "view",
+          "Description": "View to place text element on\n\nView",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8fb27fe876fb4d9794767ad7b1320811",
+          "Name": "location",
+          "Description": "Location in view\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6d833a86c7a64db8b40451c515679599",
+          "Name": "text",
+          "Description": "Text\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cd94ca0571dc4974b00c77900ff693a7",
+          "Name": "alignment",
+          "Description": "Text alignment\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "141195e806cc476e8393cb08cb0830fe",
+          "Name": "type",
+          "Description": "Revit TextNote Type\n\nTextNoteType\nDefault value : Revit.Elements.TextNoteType.Default()",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "21bc59042abf43e2baaeb6b2daec08e7",
+          "Name": "keepRotatedTextReadable",
+          "Description": "Keep text horizontal\n\nbool\nDefault value : true",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f1d471de0a3d46dab1cecd4a28088b43",
+          "Name": "rotation",
+          "Description": "Rotation in degrees\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "dd87d9c3489e483dba90fd83b76677cf",
+          "Name": "TextNote",
+          "Description": "TextNote",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Construct a new Revit TextNote by Location\n\nTextNote.ByLocation (view: View, location: Point, text: string, alignment: string, type: TextNoteType = Revit.Elements.TextNoteType.Default(), keepRotatedTextReadable: bool = true, rotation: double = 0): TextNote"
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.Views, DSRevitNodesUI",
+      "SelectedIndex": 12,
+      "SelectedString": "Level 0",
+      "NodeType": "ExtensionNode",
+      "Id": "03dc2e0b8ef742c9b570315ca0f41ba0",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "bd7883b957944767b7406e35bf494624",
+          "Name": "Views",
+          "Description": "The selected Views",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All views available in the current document."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.HorizontalAlignment, DSRevitNodesUI",
+      "SelectedIndex": 1,
+      "SelectedString": "Left",
+      "NodeType": "ExtensionNode",
+      "Id": "27fec904b24e4544865fdb6ab57624a4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "236af2f42a0242fe92f3e7f27dca36ed",
+          "Name": "Horizontal Alignment",
+          "Description": "The selected Horizontal Alignment",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select the horizontal text alignment style."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.TextNoteType.ByName@string",
+      "Id": "ea7417ac818a4234be1aeebc4c8910b0",
+      "Inputs": [
+        {
+          "Id": "c5e058ec32aa4262ad4dfaf8fc95dd91",
+          "Name": "name",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f83c1b242b264b25be2d987286db1b50",
+          "Name": "TextNoteType",
+          "Description": "TextNoteType",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Select a ModelTextType from the current document by name\n\nTextNoteType.ByName (name: string): TextNoteType"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "3.5mm Arial",
+      "Id": "36f6903c631a438b868d6f6d0dbfd3d3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c5239705180b4797a9ba081fd06480e9",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "1ac1e02d048c470cb324220371c411c6",
+      "End": "0f4279bbd0bb47dea0d02de55bd5c1ec",
+      "Id": "3159137f03914e39baef2ce6e97bb669",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "85467fee3ecf4a8da9a3e7301e502e62",
+      "End": "e9e66cf8fe234e3caf4ab39b4acd9bd2",
+      "Id": "e2e541c7b4c54e39a8fc41f13db94394",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "85467fee3ecf4a8da9a3e7301e502e62",
+      "End": "e36c60e6eb0b440c9c4ed236a6a1e53c",
+      "Id": "8e94e694ad0c4028a06cf429f0469301",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b6f273919e5646b68e006f6c0ac7da49",
+      "End": "c7ade815246744ecafce63f75422fd04",
+      "Id": "5c382787915a44c8b4091649135af5f2",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b90ba81190054d2ea48cc1def1373e00",
+      "End": "6d833a86c7a64db8b40451c515679599",
+      "Id": "3298e3d6ddb64d0f86bbcfecee71a4bf",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "65d4bf3573594db0a7cea5866f7e0ef6",
+      "End": "8fb27fe876fb4d9794767ad7b1320811",
+      "Id": "9f9c5815048f4eee921dfd016b2d8b05",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "bd7883b957944767b7406e35bf494624",
+      "End": "5c2b4a49cebd4690bd716cdfc2c20f67",
+      "Id": "14d0dde0d587454cac1a46feeceea247",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "236af2f42a0242fe92f3e7f27dca36ed",
+      "End": "cd94ca0571dc4974b00c77900ff693a7",
+      "Id": "cfae257393ac4e4096898519f27a338d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f83c1b242b264b25be2d987286db1b50",
+      "End": "141195e806cc476e8393cb08cb0830fe",
+      "Id": "3ee5274b2eb349f5b827da32c4c57b30",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "c5239705180b4797a9ba081fd06480e9",
+      "End": "c5e058ec32aa4262ad4dfaf8fc95dd91",
+      "Id": "0207a270aa8e49268bd3f4ae02776dae",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "bimorphNodes",
+      "Version": "5.1.3",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "7de94402beae45cb99b83bb2fb99bbe5",
+        "a21f3376399a49bd8c77811b5e174fb4",
+        "4e83138f5e1b4171a9a162f311936c6f"
+      ]
+    }
+  ],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.16",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "3.0",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.16.2.5624",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Name": "Select CAD",
+        "ShowGeometry": true,
+        "Id": "90d8c1feb1b94a8fbdd4f0f9d9c0ea61",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 233.5,
+        "Y": 139.0
+      },
+      {
+        "Name": "CADTextData.FromLayers",
+        "ShowGeometry": true,
+        "Id": "7de94402beae45cb99b83bb2fb99bbe5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 627.0,
+        "Y": 208.0
+      },
+      {
+        "Name": "Layer Name",
+        "ShowGeometry": true,
+        "Id": "6ed0d72ca56945d5a0b661d6e861218b",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 175.54836670455867,
+        "Y": 318.95131912668029
+      },
+      {
+        "Name": "CADTextData.TextValue",
+        "ShowGeometry": true,
+        "Id": "a21f3376399a49bd8c77811b5e174fb4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1264.0456358648446,
+        "Y": 281.5
+      },
+      {
+        "Name": "CADTextData.OriginPoint",
+        "ShowGeometry": true,
+        "Id": "4e83138f5e1b4171a9a162f311936c6f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1264.0456358648446,
+        "Y": 134.5
+      },
+      {
+        "Name": "TextNote.ByLocation",
+        "ShowGeometry": true,
+        "Id": "872cbb94335c4f9c8bdb23b9d18df6f9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1821.5338052155073,
+        "Y": 38.230293653098528
+      },
+      {
+        "Name": "Views",
+        "ShowGeometry": true,
+        "Id": "03dc2e0b8ef742c9b570315ca0f41ba0",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1264.0456358648446,
+        "Y": -13.5
+      },
+      {
+        "Name": "Select Horizontal Text Alignment",
+        "ShowGeometry": true,
+        "Id": "27fec904b24e4544865fdb6ab57624a4",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1264.0456358648446,
+        "Y": 428.5
+      },
+      {
+        "Name": "TextNoteType.ByName",
+        "ShowGeometry": true,
+        "Id": "ea7417ac818a4234be1aeebc4c8910b0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1514.108665273214,
+        "Y": 561.96818658881466
+      },
+      {
+        "Name": "Text type",
+        "ShowGeometry": true,
+        "Id": "36f6903c631a438b868d6f6d0dbfd3d3",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1262.1488308963571,
+        "Y": 638.22025752961906
+      }
+    ],
+    "Annotations": [],
+    "X": -374.18842005241731,
+    "Y": 190.79219844083724,
+    "Zoom": 0.57298771987603381
+  }
+}

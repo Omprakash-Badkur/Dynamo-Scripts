@@ -1,0 +1,399 @@
+{
+  "Uuid": "8c689657-8e69-4669-8b80-1dc08946e7a8",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "CutMultipleElementFromVoid",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "714b547f6c3042ba98a0672dc29ac3da",
+      "Name": "Select Void",
+      "Type": "selection",
+      "Type2": "hostSelection",
+      "Value": "ab5dd063-1231-45c9-8d69-570072e30c4e-00069ba2",
+      "Description": "Select a model element from the document.",
+      "SelectedIndex": 0
+    },
+    {
+      "Id": "85c1cde5612a4033952afff8d0060ca9",
+      "Name": "Select Model Elements",
+      "Type": "selection",
+      "Type2": "hostSelection",
+      "Value": "ab5dd063-1231-45c9-8d69-570072e30c4e-000697d3,ab5dd063-1231-45c9-8d69-570072e30c4e-0006a227",
+      "Description": "Select multiple elements from the Revit document.",
+      "SelectedIndex": 0
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "ab5dd063-1231-45c9-8d69-570072e30c4e-00069ba2"
+      ],
+      "Id": "714b547f6c3042ba98a0672dc29ac3da",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4f3b26b854424773b2aa7ec56ba02407",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "ab5dd063-1231-45c9-8d69-570072e30c4e-000697d3",
+        "ab5dd063-1231-45c9-8d69-570072e30c4e-0006a227"
+      ],
+      "Id": "85c1cde5612a4033952afff8d0060ca9",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ddfb62f5732c4d4ab40e377bfad74cb3",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\n\r\n# Place your code below this line\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nclr.AddReference('RevitServices')\r\n\r\nfrom Autodesk.Revit.DB import *\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n# Get the current document\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n# Unwrap inputs\r\nhost_elements = UnwrapElement(IN[0])  # e.g., walls or slabs\r\nvoid_instances = UnwrapElement(IN[1])  # void family instances\r\n\r\n# Start transaction\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nresults = []\r\nfor host in host_elements:\r\n    for void in void_instances:\r\n        try:\r\n            InstanceVoidCutUtils.AddInstanceVoidCut(doc, host, void)\r\n            results.append(\"Cut applied\")\r\n        except Exception as e:\r\n            results.append(str(e))\r\n\r\n# End transaction\r\nTransactionManager.Instance.TransactionTaskDone()\r\n\r\nOUT = results",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "ed57fd68ffe44f18993249525038d160",
+      "Inputs": [
+        {
+          "Id": "29418c9a2e2d4892b28b95d59b36bead",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bdc67a063a664f588937b7550336954b",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4867ed4fe522448db626768ade6a32db",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "8fc236be581649f9bb18e248c8675591",
+      "Inputs": [
+        {
+          "Id": "6f8e0c5f867b4f8e80ad5284e71a7f66",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9ca243edac5e4769aec36f4186ef2c1c",
+          "Name": "list",
+          "Description": "A list (type: var[]..[])",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list from the given inputs"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "6fcae7d17fc64b44b8ea5f3521906e03",
+      "Inputs": [
+        {
+          "Id": "4f66318fbb8f4400980cdc6404f25a4e",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "887359f3ddba4495b32dff570bc4ac57",
+          "Name": "list",
+          "Description": "A list (type: var[]..[])",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list from the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "66f78539-8a80-402e-81dc-28a0737ab127",
+      "FunctionType": "Graph",
+      "NodeType": "FunctionNode",
+      "Id": "54ddb9943af749c7b21cf3209eb925ca",
+      "Inputs": [
+        {
+          "Id": "1c7864e514ed4bf2b7bd7ca4cbb6c679",
+          "Name": "elementToBeCut",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "36dd2c9008714708a6322804615a52b8",
+          "Name": "cuttingElement",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "dd1563fb9e37431f9c95969e926ed0ca",
+          "Name": "success",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cc0048cc753948d0aeba4ffb711cd09d",
+          "Name": "elementToBeCut",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d32969ead06b439a9bc3f7c297101ae4",
+          "Name": "cuttingElement",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Adds a solid-solid cut for two model elements (if possible). "
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "4f3b26b854424773b2aa7ec56ba02407",
+      "End": "4f66318fbb8f4400980cdc6404f25a4e",
+      "Id": "322a7d19209d4c0ba3b0fd76d770e9a8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4f3b26b854424773b2aa7ec56ba02407",
+      "End": "36dd2c9008714708a6322804615a52b8",
+      "Id": "15703f992aab497aa73d50f6c2ac0b5e",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ddfb62f5732c4d4ab40e377bfad74cb3",
+      "End": "6f8e0c5f867b4f8e80ad5284e71a7f66",
+      "Id": "4502440f89cc4bb593f5efe929dff62b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ddfb62f5732c4d4ab40e377bfad74cb3",
+      "End": "1c7864e514ed4bf2b7bd7ca4cbb6c679",
+      "Id": "920a60001140466ea93eea5580d1eef4",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9ca243edac5e4769aec36f4186ef2c1c",
+      "End": "29418c9a2e2d4892b28b95d59b36bead",
+      "Id": "5d2937bf4458427e964122ab0d0dec77",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "887359f3ddba4495b32dff570bc4ac57",
+      "End": "bdc67a063a664f588937b7550336954b",
+      "Id": "be4cdc7ee0f44b19b45f0680a73fb151",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [
+    "66f78539-8a80-402e-81dc-28a0737ab127"
+  ],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "Clockwork for Dynamo 2.x",
+      "Version": "2.6.0",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "54ddb9943af749c7b21cf3209eb925ca"
+      ]
+    }
+  ],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.17",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "4.0",
+      "Data": {}
+    }
+  ],
+  "Author": "None provided",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.17.0.3472",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Name": "Select Void",
+        "ShowGeometry": true,
+        "Id": "714b547f6c3042ba98a0672dc29ac3da",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 165.19999999999993,
+        "Y": 110.39999999999999
+      },
+      {
+        "Name": "Select Model Elements",
+        "ShowGeometry": true,
+        "Id": "85c1cde5612a4033952afff8d0060ca9",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 13.708579776839372,
+        "Y": -273.822313470548
+      },
+      {
+        "Name": "For Wall and Floor",
+        "ShowGeometry": true,
+        "Id": "ed57fd68ffe44f18993249525038d160",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 818.47495769406623,
+        "Y": -154.37158675927856
+      },
+      {
+        "Name": "List Create",
+        "ShowGeometry": true,
+        "Id": "8fc236be581649f9bb18e248c8675591",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 360.012546328514,
+        "Y": -320.66245727384114
+      },
+      {
+        "Name": "List Create",
+        "ShowGeometry": true,
+        "Id": "6fcae7d17fc64b44b8ea5f3521906e03",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 551.05831118981962,
+        "Y": -91.345590100103863
+      },
+      {
+        "Name": "Element.CutGeometry",
+        "ShowGeometry": true,
+        "Id": "54ddb9943af749c7b21cf3209eb925ca",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 921.51517747291132,
+        "Y": -351.6386491149679
+      }
+    ],
+    "Annotations": [],
+    "X": 69.832195731535165,
+    "Y": 415.78898452888529,
+    "Zoom": 0.73894747066479172
+  }
+}
